@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Player</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined">
+</head>
+
+<body>
+  <div class="main_division">
+    <div class="main_container">
+      <h2 id="title">Aaj Din chadheya</h2>
+      <h3 id="artist">Rahat fatehi ali khan</h3>
+      <div class="img_container">
+        <img src="images/aaj din chadheya.jpg" alt="love aaj kal">
+      </div>
+      <audio src="songs/Aaj Din Chadheya.mp3"></audio>
+      <!-- ----------------------progress bar---------------- -->
+      <div class="progress_container" id="progress_container">
+        <div class="time">
+          <div id="curr_time">0.00</div>
+          <div id="total_duration">2.44</div>
+        </div>
+        <div class="progress_div" id='progress_div'>
+          <div class="progress_bar" id="progress_bar"></div>
+        </div>
+      </div>
+      <!-- ---------controls----------------- -->
+      <div class="musics_controlers">
+        <i class="material-icons-outlined" id="repeat_plist" title="repeat song">repeat</i>
+        <i class="fas fa-backward" id="prev" title="previous"></i>
+        <i class="fas fa-play main_button" id="play" title="play"></i>
+        <i class="fas fa-forward" id="next" title="next"></i>
+        <i class="material-icons-outlined" id="moreMusic">queue_music</i>
+      </div>
+      <div class="music-list">
+        <div class="header">
+          <div class="row">
+            <i class="material-icons-outlined">queue_music</i>
+            <span>Music list</span>
+          </div>
+          <i class="material-icons-outlined" id="close">close</i>
+        </div>
+        <ul>
+
+        </ul>
+      </div>
+
+    </div>
+    <div class="wave1">
+    </div>
+    <!-- <div class="wave2">
+    </div> -->
+  </div>
+  <script src="script.js"></script>
+</body>
+
+</html>
