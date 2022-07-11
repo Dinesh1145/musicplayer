@@ -1,5 +1,5 @@
 const play = document.querySelector('#play');
-const music = document.querySelector('audio');
+const music = document.querySelector('#main_audio');
 const img = document.querySelector('img');
 const title = document.querySelector('#title');
 const artist = document.querySelector('#artist');
@@ -33,7 +33,7 @@ const songs = [
         name: "mehrama_song",
         title: "Mehrama",
         artist: "Darshan Raval",
-        img_src: "aaj_din_chadheya"
+        img_src: "love_aaj_kal"
     },
     {
         name: "thode_kam_ajnabi",
@@ -45,13 +45,13 @@ const songs = [
 
 let songIndex = 0;
 
-const loadSong = (songs) => {
-    music.src = `songs/${songs.name}.mp3`;
-    img.src = `images/${songs.img_src}.jpg`;
-    title.textContent = `${songs.title}`;
-    artist.textContent = `${songs.artist}`;
+const loadSong = (song) => {
+    music.src = `songs/${song.name}.mp3`;
+    img.src = `images/${song.img_src}.jpg`;
+    title.textContent = `${song.title}`;
+    artist.textContent = `${song.artist}`;
 }
-loadSong(songs);
+loadSong(songs[songIndex]);
 
 window.addEventListener('load', () => {
     loadSong(songs[songIndex]);
@@ -125,7 +125,15 @@ play.addEventListener('click', () => {
 ///////////forward and backward functionality/////////
 // ------------------on clicking next button-----------------
 const nextSong = () => {
-    songIndex = (songIndex + 1) % songs.length;
+    if (repeat_plist.innerText === "shuffle") {
+        let randomIndex;
+        do {
+            randomIndex = Math.floor(Math.random() * songs.length);
+        } while (songIndex === randomIndex);//checking the song index it shouldn't be same.
+        songIndex = randomIndex
+    } else {
+        songIndex = (songIndex + 1) % songs.length;
+    }
     loadSong(songs[songIndex]);
     playButton()
     playingNow();
@@ -186,8 +194,9 @@ music.addEventListener('ended', () => {
             let randomIndex;
             do {
                 randomIndex = Math.floor(Math.random() * songs.length);
-            } while (songIndex == randomIndex);//checking the song index it shouldn't be same.
-            //  console.log(randomIndex);
+            } while (songIndex === randomIndex);//checking the song index it shouldn't be same.
+
+            console.log(randomIndex);
             songIndex = randomIndex;
             loadSong(songs[songIndex]);
             playButton();
@@ -215,11 +224,11 @@ for (let i = 0; i < songs.length; i++) {
     let liTag = `
                <li li-index="${i}">
                    <div class="row">
-                      <span>${songs[i].title}</span>
+                      <span>${songs[i].name}</span>
                       <p>${songs[i].artist}</p>
                    </div>
-                   <audio src="songs/${songs[i].title}.mp3" class="liAudioDur${i}"></audio>
-                 <span id="songDuration${i}" class="songDuration">5.17</span>
+                   <audio src="songs/${songs[i].name}.mp3" class="liAudioDur${i}"></audio>
+                   <span id="songDuration${i}" class="songDuration">0</span>
                </li>`;
 
     ulTag.insertAdjacentHTML("beforeend", liTag);
@@ -227,8 +236,8 @@ for (let i = 0; i < songs.length; i++) {
     const liAudioTag = document.querySelector(`#songDuration${i}`);
     const liAudioDur = document.querySelector(`.liAudioDur${i}`);
 
-    // console.log(liAudioTag);
-    // console.log(liAudioDur);
+    console.log(liAudioTag);
+    console.log(liAudioDur);
 
     liAudioDur.addEventListener("loadeddata", () => {
         let audioDuration = liAudioDur.duration;
@@ -238,7 +247,11 @@ for (let i = 0; i < songs.length; i++) {
         if (sec_audioDuration < 10) {
             sec_audioDuration = `0${sec_audioDuration}`;
         }
-        liAudioTag.innerText = `${min_audioDuration}:${sec_audioDuration}`;
+        if (i === songIndex) {
+            liAudioTag.innerText = `playing`;
+        } else {
+            liAudioTag.innerText = `${min_audioDuration}:${sec_audioDuration}`;
+        }
         liAudioTag.setAttribute('t-duration', `${min_audioDuration}:${sec_audioDuration}`)
     })
 
@@ -250,35 +263,48 @@ const allLiTag = document.querySelectorAll("li");
 // console.log(allLiTag)
 function playingNow() {
     for (let j = 0; j < allLiTag.length; j++) {
-        console.log(songIndex)
+        // console.log(songIndex)
         var audioTag = allLiTag[j].querySelector(`#songDuration${j}`)
+        const audioDur = audioTag.getAttribute('t-duration');
         // let audioDur = allLiTag[j].querySelector(`.liAudioDur${j}`)
-        // console.log(audioDur)
-        if (allLiTag[j].classList.contains("playing" || "stop") && allLiTag[j].getAttribute("li-index") == songIndex) {
-            audioTag.innerText = "stop";
+        // console.log(allLiTag[j].getAttribute("li-index"))
 
-        } else if (allLiTag[j].classList.contains("playing")) {
+        if (allLiTag[j].classList.contains("playing") && allLiTag[j].getAttribute("li-index") === songIndex) {
+            if (audioTag.innerText === "playing") {
+                audioTag.innerText = "stop";
+            } else if (audioTag.innerText === "stop") {
+                audioTag.innerText = "playing";
+            }
+        }
+        else if (allLiTag[j].classList.contains("playing") && allLiTag[j].getAttribute("li-index") != songIndex) {
             allLiTag[j].classList.remove("playing");
-            const audioDur = audioTag.getAttribute('t-duration');
             audioTag.innerText = audioDur;
-        } else if (allLiTag[j].getAttribute("li-index") == songIndex) {
+        }
+        else if (allLiTag[j].getAttribute("li-index") === songIndex.toString()) {
             allLiTag[j].classList.add("playing");
             audioTag.innerText = 'playing';
+            console.log('audioTag.innerText:', audioTag.innerText);
         }
         allLiTag[j].setAttribute("onclick", "clicked(this)");
     }
 }
-function clicked(element) {
-    console.log(element)
-    const getIndex = element.getAttribute("li-index");
+function clicked(e) {
+    const span = e.querySelector(".songDuration")
+    const getIndex = e.getAttribute("li-index");
     songIndex = getIndex;
     loadSong(songs[songIndex]);
-    // if(element.innerText="playing"){
-    //     playButton();
-    // }else if(element.innerText="stop"){
-    //     pauseButton();
-    //     element.innerText="playing";
-    // }
+    if (e.classList.contains("playing")) {
+        console.log(span.innerText);
+        if (span.innerText === "playing") {
+            pauseButton();
+        } else if (span.innerText === "stop") {
+            playButton();
+        } else {
+            playButton();
+        }
+    } else {
+        playButton();
+    }
     playingNow();
 }
 
