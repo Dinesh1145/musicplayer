@@ -24,13 +24,13 @@ const songs = [
         img_src: "aaj_din_chadheya"
     },
     {
-        name: "lamha",
+        name: "lamha_song",
         title: "Lamha",
         artist: "Antra mitra",
         img_src: "pagglait"
     },
     {
-        name: "mehrama",
+        name: "mehrama_song",
         title: "Mehrama",
         artist: "Darshan Raval",
         img_src: "aaj_din_chadheya"
