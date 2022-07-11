@@ -18,22 +18,22 @@ const progress_div = document.querySelector('#progress_div');
 
 const songs = [
     {
-        name: "aaj din chadheya",
+        name: "aaj_din_chadheya",
         title: "Aaj Din Chadheya",
         artist: "Rahat fateh ali khan"
     },
     {
-        name: "pagglait",
-        title: "lamha",
+        name: "lamha",
+        title: "Lamha",
         artist: "Antra mitra"
     },
     {
-        name: "love aaj kal",
+        name: "love_aaj_kal",
         title: "Mehrama",
         artist: "Darshan Raval"
     },
     {
-        name: "pagglait",
+        name: "thode_kam_ajnabi",
         title: "Thode Kam ajnabi",
         artist: "Himani Kapoor"
     }
@@ -42,7 +42,7 @@ const songs = [
 let songIndex = 0;
 
 const loadSong = (songs) => {
-    music.src = `songs/${songs.title}.mp3`;
+    music.src = `songs/${songs.name}.mp3`;
     img.src = `images/${songs.name}.jpg`;
     title.textContent = `${songs.title}`;
     artist.textContent = `${songs.artist}`;
