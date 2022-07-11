@@ -269,14 +269,14 @@ function playingNow() {
         // let audioDur = allLiTag[j].querySelector(`.liAudioDur${j}`)
         // console.log(allLiTag[j].getAttribute("li-index"))
 
-        if (allLiTag[j].classList.contains("playing") && allLiTag[j].getAttribute("li-index") === songIndex) {
+        if (allLiTag[j].classList.contains("playing") && allLiTag[j].getAttribute("li-index") === songIndex.toString()) {
             if (audioTag.innerText === "playing") {
                 audioTag.innerText = "stop";
             } else if (audioTag.innerText === "stop") {
                 audioTag.innerText = "playing";
             }
         }
-        else if (allLiTag[j].classList.contains("playing") && allLiTag[j].getAttribute("li-index") != songIndex) {
+        else if (allLiTag[j].classList.contains("playing") && allLiTag[j].getAttribute("li-index") !== songIndex.toString()) {
             allLiTag[j].classList.remove("playing");
             audioTag.innerText = audioDur;
         }
