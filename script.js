@@ -46,8 +46,8 @@ const songs = [
 let songIndex = 0;
 
 const loadSong = (songs) => {
-    music.src = `./songs/${songs.name}.mp3`;
-    img.src = `./images/${songs.img_src}.jpg`;
+    music.src = `songs/${songs.name}.mp3`;
+    img.src = `images/${songs.img_src}.jpg`;
     title.textContent = `${songs.title}`;
     artist.textContent = `${songs.artist}`;
 }
