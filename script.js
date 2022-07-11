@@ -20,22 +20,26 @@ const songs = [
     {
         name: "aaj_din_chadheya",
         title: "Aaj Din Chadheya",
-        artist: "Rahat fateh ali khan"
+        artist: "Rahat fateh ali khan",
+        img_src: "aaj_din_chadheya"
     },
     {
         name: "lamha",
         title: "Lamha",
-        artist: "Antra mitra"
+        artist: "Antra mitra",
+        img_src: "pagglait"
     },
     {
-        name: "love_aaj_kal",
+        name: "mehrama",
         title: "Mehrama",
-        artist: "Darshan Raval"
+        artist: "Darshan Raval",
+        img_src: "aaj_din_chadheya"
     },
     {
         name: "thode_kam_ajnabi",
         title: "Thode Kam ajnabi",
-        artist: "Himani Kapoor"
+        artist: "Himani Kapoor",
+        img_src: "pagglait"
     }
 ]
 
@@ -43,7 +47,7 @@ let songIndex = 0;
 
 const loadSong = (songs) => {
     music.src = `songs/${songs.name}.mp3`;
-    img.src = `images/${songs.name}.jpg`;
+    img.src = `images/${songs.img_src}.jpg`;
     title.textContent = `${songs.title}`;
     artist.textContent = `${songs.artist}`;
 }
