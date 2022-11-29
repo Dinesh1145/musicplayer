@@ -19,12 +19,6 @@ const progress_div = document.querySelector('#progress_div');
 
 const songs = [
     {
-        name: "aaj_din_chadheya",
-        title: "Aaj Din Chadheya",
-        artist: "Rahat fateh ali khan",
-        img_src: "aaj_din_chadheya"
-    },
-    {
         name: "lamha_song",
         title: "Lamha",
         artist: "Antra mitra",
