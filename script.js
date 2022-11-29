@@ -16,6 +16,7 @@ let curr_time = document.querySelector('#curr_time');
 const progress_div = document.querySelector('#progress_div');
 
 
+
 const songs = [
     {
         name: "aaj_din_chadheya",
